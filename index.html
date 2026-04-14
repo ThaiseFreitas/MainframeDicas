@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Técnico - Operação Mainframe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Manual de Operações: Decolate</h1>
+            <p>Guia de Procedimentos Técnicos - Versão 1.0</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav class="menu-rapido">
+            <button onclick="scrollToSection('decolate')">Decolate de Job</button>
+            <button onclick="scrollToSection('desmigrar')">Desmigrar Data Set</button>
+            <button onclick="scrollToSection('erros')">Tratamento de Erros</button>
+        </nav>
+
+        <section id="decolate" class="card">
+            <h2><span class="icon">🚀</span> Procedimento de Decolate</h2>
+            
+            <div class="step">
+                <h3>1. Solicitação Exemplo</h3>
+                <div class="code-block">
+                    PBFTCC12 0058486 27/05/25<br>
+                    PBFTCC03 0037296 12/07/25
+                </div>
+            </div>
+
+            <div class="step">
+                <h3>2. Localizar JCL (Tela U)</h3>
+                <ul>
+                    <li>Acesse a <strong>TELA U</strong></li>
+                    <li>No campo <code>JOB NAME</code> insira o nome solicitado (Ex: <strong>PBFTCC12</strong>)</li>
+                    <li>Ao localizar, entre com <strong>"V"</strong></li>
+                    <li>Na linha de comando: <code>F JCL</code></li>
+                    <li>Anote o JCL: <code>SYS2.JOBS(FTCJC710)</code></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>3. Execução (Tela R)</h3>
+                <ul>
+                    <li>Acesse <code>TELA =R</code></li>
+                    <li>LIB: <code>CTD.V630.REPORTS</code></li>
+                    <li>Comando: <code>F JOB FTCJC710</code> (JCL localizado anteriormente)</li>
+                    <li>Na lista, localize o <strong>EVENTUAL</strong> e coloque <strong>"S"</strong></li>
+                    <li>Na tela seguinte, preencha:
+                        <ul>
+                            <li><strong>JOBNAME:</strong> Nome solicitado</li>
+                            <li><strong>JOBID:</strong> J + Jobnumber (Ex: J0021076)</li>
+                        </ul>
+                    </li>
+                    <li>Pressione <code>F3</code>, depois <code>F</code> (Force) e <code>Y</code> para confirmar.</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>4. Validação (Tela A e U)</h3>
+                <p>Confirme a execução na <strong>TELA =A</strong>. Depois, na <strong>TELA U</strong>:</p>
+                <ul>
+                    <li><code>F4</code> no relatório</li>
+                    <li>Use <strong>"S"</strong> para conferir filtros (remova se houver)</li>
+                    <li>Use <code>MF8</code> para ir ao final e validar o status: <span class="badge-success">ENDED "OK"</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="desmigrar" class="card">
+            <h2><span class="icon">📦</span> Desmigrar Data Set</h2>
+            <p class="info-note">Utilizado para Jobs de backup como PTSTIBK1 / PCPBKD19.</p>
+            
+            <div class="step">
+                <h3>Procedimento via P.3.4</h3>
+                <ul>
+                    <li>Identifique o Data Set no ABEND (Ex: <code>NOT SELECTED</code>)</li>
+                    <li>Na tela <strong>P.3.4</strong>, digite o nome do arquivo.</li>
+                    <li>Se estiver migrado, digite o comando <code>HRECALL</code> ao lado do arquivo.</li>
+                    <li>Aguarde o volume reaparecer e dê <strong>RERUN</strong> no Job abendado.</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Desmigrar via Tela U (Opção 3 - Histórico)</h3>
+                <ul>
+                    <li>Digite <strong>"R"</strong> (Restore) na frente do Job.</li>
+                    <li>Confirme: <code>CONFIRM: Y</code></li>
+                    <li>Restore Mission: <code>RSTEQP01</code></li>
+                    <li>Na <strong>TELA =A</strong>, localize o RSTEQP01 e dê <strong>"B"</strong> (Bypass) com <code>Y-Y</code>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="erros" class="card highlight">
+            <h2><span class="icon">⚠️</span> Tratamento de Erro (RSTEQP01 Demorando)</h2>
+            <ol>
+                <li>Volte na <strong>TELA U</strong> e dê <strong>"C"</strong> (Cancel) no Job.</li>
+                <li>Dê <strong>"A"</strong> ao lado do Job com problema.</li>
+                <li>Comando: <code>DI A</code></li>
+                <li>Localize e copie o nome do DSNAME (Ex: <code>CTDJB1.JOBSDB...</code>)</li>
+                <li>Na <strong>P.3.4</strong>, renomeie o arquivo para <code>.OLD</code></li>
+                <li>Na Tela 3, rode o job <strong>RSTRESET</strong>.</li>
+                <li>Dê <strong>"B"</strong> para liberar o <code>RSTEQP01</code>.</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="footer-year">2026</span> Manual de Operações Mainframe - Acesso Restrito</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

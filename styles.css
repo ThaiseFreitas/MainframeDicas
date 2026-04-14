@@ -1,0 +1,155 @@
+/* Definições de Cores e Variáveis */
+:root {
+    --primary-color: #6a5acd; /* SlateBlue */
+    --secondary-color: #4b0082; /* Indigo */
+    --bg-color: #f4f2f9;
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --accent-lilac: #e6e6fa; /* Lavender */
+    --success-green: #2ecc71;
+}
+
+/* Reset e Estrutura Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* Menu de Navegação */
+.menu-rapido {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.menu-rapido button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.menu-rapido button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Cards de Conteúdo */
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    border-left: 6px solid var(--primary-color);
+}
+
+.card.highlight {
+    border-left-color: #ff4757;
+    background-color: #fff5f5;
+}
+
+h2 {
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h3 {
+    color: var(--primary-color);
+    margin: 20px 0 10px 0;
+    font-size: 1.2rem;
+}
+
+/* Estilo de Código e Listas */
+.code-block {
+    background-color: #2d3436;
+    color: #fab1a0;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px 0;
+    overflow-x: auto;
+}
+
+code {
+    background-color: var(--accent-lilac);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+ul, ol {
+    margin-left: 25px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+/* Badges e Notas */
+.badge-success {
+    background-color: var(--success-green);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.info-note {
+    background-color: var(--accent-lilac);
+    padding: 10px;
+    border-radius: 6px;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 40px 0;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    header h1 { font-size: 1.8rem; }
+    .card { padding: 20px; }
+}
